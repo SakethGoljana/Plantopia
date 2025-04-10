@@ -17,13 +17,14 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY2FljZCto-nKWVgZxyh9kYSoCS0b_o1U&libraries=places&callback=initMap" async defer></script>
     <script src="add-to-cart.js" defer></script>
+    <script src="auth.js" defer></script>
 </head>
 <body>
     <header>
         <div class="header-container">
             <button class="hamburger" aria-label="Toggle navigation">☰</button>
             <div class="logo-title-container">
-                <img src="images/logo-final.png" alt="LOGO" class="logo">
+                <img src="images/logo-final.png" alt="LOGO 2 IMAGE" class="logo">
             </div>
             <nav class="nav-right">
                 <a href="index.html">HOME</a>
@@ -41,9 +42,65 @@
                 </div>
                 <a href="tablereserve.html">RESERVE TABLE</a>
                 <a href="source-bib.html">REFERENCE PAGE</a>
+                <div id="cart-icon" class="cart">🛒
+                    <span id="cart-count" class="cart-item-count">0</span>
+                </div>
+                <div id="user-profile" class="user-profile" style="display: none;">
+                    <div class="user-dropdown">
+                        <div class="user-name-dropbtn">
+                            <img id="user-picture" class="user-picture" src="images/guest.jpg" alt="Profile Picture">
+                            <span id="user-name"></span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                        <div class="user-dropdown-content">
+                            <a href="active-orders.html">Your Orders</a>
+                            <a href="#" id="sign-out-link" onclick="signOut()">Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="auth-options" class="dropdown">
+                    <a href="#" class="dropbtn">SIGN IN ▼</a>
+                    <div class="dropdown-content">
+                        <div class="g_id_signin"
+                            data-type="standard"
+                            data-size="large"
+                            data-theme="outline"
+                            data-text="sign_in_with"
+                            data-shape="rectangular"
+                            data-logo_alignment="left">
+                        </div>
+                        <a href="#" id="guest-signin">Sign in as Guest</a>
+                    </div>
+                </div>
+                <div id="g_id_onload"
+                    data-client_id="393903945324-dkvoequ09ml50t2lbfjhf5rped7sijp4.apps.googleusercontent.com"
+                    data-callback="handleCredentialResponse"
+                    data-auto_prompt="false"
+                    data-ux_mode="popup"
+                    data-login_uri="http://127.0.0.1:5500">
+                </div>
             </nav>
         </div>
     </header>
+
+    <!-- Guest Sign-in Popup -->
+    <div id="guest-popup" class="popup" style="display: none;">
+        <button class="popup-close" id="guest-popup-close">×</button>
+        <div class="popup-content">
+            <h2>Sign in as Guest</h2>
+            <input type="text" id="guest-name" placeholder="Enter your name" required />
+            <button id="guest-submit">Submit</button>
+            <button id="guest-cancel">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Welcome Notification Popup -->
+    <div id="welcome-notification" class="notification" style="display: none;">
+        <div class="notification-content">
+            <span id="welcome-message"></span>
+            <button id="close-notification">×</button>
+        </div>
+    </div>
     <div class="main-content">
         <div class="left-section">
             <a href="index.html" class="back-to-store"><i class="fas fa-arrow-left"></i> Back to store</a>
